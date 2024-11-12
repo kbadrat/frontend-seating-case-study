@@ -6,6 +6,7 @@ import { useFetchEvent } from "@/hooks/useFetchEvent";
 
 const EventSection: FC = () => {
     const { data: event, loading, error } = useFetchEvent();
+    console.log(event);
 
     return (
         <main className="grow flex flex-col justify-center">
@@ -18,7 +19,14 @@ const EventSection: FC = () => {
             ) : event ? (
                 <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
                     <SeatingMap />
-                    <EventInfo />
+                    <EventInfo
+                        name={event.namePub}
+                        description={event.description}
+                        dateFrom={event.dateFrom}
+                        dateTo={event.dateTo}
+                        image={event.headerImageUrl}
+                        place={event.place}
+                    />
                 </div>
             ) : null}
         </main>

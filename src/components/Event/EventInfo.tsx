@@ -1,23 +1,42 @@
 import { FC } from "react";
 import AddToCalendarBtn from "./AddToCalendarBtn";
+import { dateFormat } from "@/services/dateFormat";
 
-const EventInfo: FC = () => {
+interface Props {
+    name: string;
+    description: string;
+    dateFrom: string | Date;
+    dateTo: string | Date;
+    image: string;
+    place: string;
+}
+
+const EventInfo: FC<Props> = ({
+    name,
+    description,
+    dateFrom,
+    dateTo,
+    image,
+    place,
+}) => {
+    const [dateFromFormatted, dateToFormatted] = dateFormat(dateFrom, dateTo);
+
     return (
         <aside className="w-full max-w-sm bg-white rounded-md shadow-sm p-3 flex flex-col gap-2">
-            {/* event header image placeholder */}
-            <div className="bg-zinc-100 rounded-md h-32" />
+            {/* event date */}
+            <p>{`${dateFromFormatted} - ${dateToFormatted}`}</p>
+            {/* event address */}
+            <p>{place}</p>
+            {/* event header image */}
+            <img
+                src={image}
+                alt={name}
+                className="rounded-md h-auto w-full object-cover"
+            />
             {/* event name */}
-            <h1 className="text-xl text-zinc-900 font-semibold">
-                [event-name]
-            </h1>
+            <h1 className="text-xl text-zinc-900 font-semibold">{name}</h1>
             {/* event description */}
-            <p className="text-sm text-zinc-500">
-                [event-description]: Lorem ipsum dolor sit amet, consectetur
-                adipisicing elit. Aliquam aliquid asperiores beatae deserunt
-                dicta dolorem eius eos fuga laborum nisi officia pariatur quidem
-                repellendus, reprehenderit sapiente, sed tenetur vel
-                voluptatibus?
-            </p>
+            <p className="text-sm text-zinc-500">{description}</p>
             {/* add to calendar button */}
             <AddToCalendarBtn />
         </aside>
