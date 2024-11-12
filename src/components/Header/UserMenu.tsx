@@ -22,9 +22,9 @@ const UserMenu: FC = () => {
                 <Button variant="ghost">
                     <div className="flex items-center gap-2">
                         <Avatar>
-                            <AvatarImage
+                            {/* <AvatarImage
                                 src={`https://source.boringavatars.com/marble/120/<user-email>?colors=25106C,7F46DB`}
-                            />
+                            /> */}
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
 
