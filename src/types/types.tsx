@@ -30,6 +30,11 @@ export interface ISeatRow {
     seats: ISeat[];
 }
 
+export interface IEventTicketsResponse {
+    ticketTypes: ITicketType[];
+    seatRows: ISeatRow[];
+}
+
 /* Login 
 email: frontend@nfctron.com
 password: Nfctron2025
