@@ -4,7 +4,7 @@ import TotalCart from "./TotalCart";
 import { useCart } from "../../hooks/useCart";
 
 const Cart: FC = () => {
-    const { cart, setCart } = useCart();
+    const { cart } = useCart();
 
     function getTotalTickets(): number {
         return cart.tickets?.length ?? 0;
@@ -17,7 +17,7 @@ const Cart: FC = () => {
                 <TotalCart totalTickets={getTotalTickets} />
 
                 {/* checkout button */}
-                <Button disabled variant="default">
+                <Button disabled={getTotalTickets() === 0} variant="default">
                     Checkout now
                 </Button>
             </div>

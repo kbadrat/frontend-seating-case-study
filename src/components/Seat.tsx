@@ -33,9 +33,29 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
         const { isTicketInCart, addTicketToCart, removeTicketFromCart } =
             useCart();
 
-        const isInCart = isTicketInCart(seat.seatId);
+        const [isInCart, setIsInCart] = React.useState<boolean>(
+            isTicketInCart(seat.seatId)
+        );
         const { changeTotalPrice } = useCart();
         const price = getTicketPrice(seat.ticketTypeId);
+
+        const handleAddToCart = () => {
+            addTicketToCart({
+                ticketTypeId: seat.ticketTypeId,
+                seatId: seat.seatId,
+            });
+            price && changeTotalPrice(price, true);
+            setIsInCart(true);
+        };
+
+        const handleRemoveFromCart = () => {
+            removeTicketFromCart({
+                ticketTypeId: seat.ticketTypeId,
+                seatId: seat.seatId,
+            });
+            price && changeTotalPrice(price, false);
+            setIsInCart(false);
+        };
 
         /* shows selected seat */
         const handleOpenChange = (open: boolean) => {
@@ -47,7 +67,12 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
         return (
             <Popover onOpenChange={handleOpenChange}>
                 <PopoverTrigger>
-                    <div className={props.className} ref={ref}>
+                    <div
+                        className={`${props.className} ${
+                            isInCart ? "bg-green-400 hover:bg-green-700" : ""
+                        }`}
+                        ref={ref}
+                    >
                         {seat.place}
                     </div>
                 </PopoverTrigger>
@@ -79,13 +104,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                 <Button
                                     variant="destructive"
                                     size="sm"
-                                    onClick={() => {
-                                        removeTicketFromCart({
-                                            ticketTypeId: seat.ticketTypeId,
-                                            seatId: seat.seatId,
-                                        });
-                                        price && changeTotalPrice(price, false);
-                                    }}
+                                    onClick={handleRemoveFromCart}
                                 >
                                     Remove from cart
                                 </Button>
@@ -93,13 +112,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                 <Button
                                     variant="default"
                                     size="sm"
-                                    onClick={() => {
-                                        addTicketToCart({
-                                            ticketTypeId: seat.ticketTypeId,
-                                            seatId: seat.seatId,
-                                        });
-                                        price && changeTotalPrice(price, true);
-                                    }}
+                                    onClick={handleAddToCart}
                                 >
                                     Add to cart
                                 </Button>
