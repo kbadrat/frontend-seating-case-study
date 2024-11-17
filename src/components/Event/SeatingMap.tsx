@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Seat } from "../Seat";
 import { useFetchEventTickets } from "@/hooks/useFetchEventTickets";
 import { IEventTicketsResponse } from "@/types/types";
+import { useCart } from "@/hooks/useCart";
 
 interface Props {
     eventId: string;
@@ -10,6 +11,7 @@ interface Props {
 const SeatingMap: FC<Props> = ({ eventId }) => {
     const { data: tickets, loading, error } = useFetchEventTickets(eventId);
     const [selectedSeat, setSelectedSeat] = useState<string>("");
+    const { currency } = useCart();
 
     function normalizeSeats(tickets: IEventTicketsResponse) {
         tickets.seatRows.forEach((row) => {
@@ -27,6 +29,13 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
         );
 
         return foundType ? foundType.name : "Ticket";
+    }
+
+    function getTicketPrice(ticketType: string): number | null {
+        const price = tickets?.ticketTypes.find(
+            (type) => type.id === ticketType
+        );
+        return price ? price.price : null;
     }
 
     function getSeatClassName(type: string, seatId: string): string {
@@ -51,8 +60,6 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
     }
 
     function handleSeats(tickets: IEventTicketsResponse) {
-        console.log(tickets);
-
         return tickets.seatRows.map((row) => (
             <div key={row.seatRow} className="flex items-center">
                 <div className="flex-none pl-5 text-gray-800 font-medium ">
@@ -71,6 +78,8 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
                             )}
                             setSelectedSeat={setSelectedSeat}
                             getTicketType={getTicketType}
+                            getTicketPrice={getTicketPrice}
+                            currency={currency}
                         />
                     ))}
                 </div>

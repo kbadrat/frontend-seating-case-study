@@ -65,8 +65,8 @@ export interface IOrderTicket {
 
 export interface IOrderInput {
     eventId: string;
-    tickets: IOrderTicket[];
-    user: IUser;
+    tickets: IOrderTicket[] | null;
+    user: IUser | undefined;
 }
 
 export interface IOrderResponse {

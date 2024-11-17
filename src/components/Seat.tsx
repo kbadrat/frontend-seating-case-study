@@ -4,6 +4,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover.tsx";
+import { useCart } from "@/hooks/useCart";
 import { ISeat } from "@/types/types";
 import React from "react";
 
@@ -12,11 +13,29 @@ interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     seat: ISeat;
     setSelectedSeat: React.Dispatch<React.SetStateAction<string>>;
     getTicketType: (ticketType: string) => string;
+    getTicketPrice: (ticketType: string) => number | null;
+    currency: string;
 }
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
-    ({ seatRow, seat, setSelectedSeat, getTicketType, ...props }, ref) => {
-        const isInCart = false;
+    (
+        {
+            seatRow,
+            seat,
+            setSelectedSeat,
+            getTicketType,
+            getTicketPrice,
+            currency,
+            ...props
+        },
+        ref
+    ) => {
+        const { isTicketInCart, addTicketToCart, removeTicketFromCart } =
+            useCart();
+
+        const isInCart = isTicketInCart(seat.seatId);
+        const { changeTotalPrice } = useCart();
+        const price = getTicketPrice(seat.ticketTypeId);
 
         /* shows selected seat */
         const handleOpenChange = (open: boolean) => {
@@ -51,17 +70,37 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                             <span className="font-semibold">{` ${seat.place}`}</span>
                         </div>
 
+                        <div className="text-lg font-bold text-green-600">
+                            {`${price} ${currency.toUpperCase()}`}
+                        </div>
+
                         <footer className="flex flex-col">
                             {isInCart ? (
                                 <Button
-                                    disabled
                                     variant="destructive"
                                     size="sm"
+                                    onClick={() => {
+                                        removeTicketFromCart({
+                                            ticketTypeId: seat.ticketTypeId,
+                                            seatId: seat.seatId,
+                                        });
+                                        price && changeTotalPrice(price, false);
+                                    }}
                                 >
                                     Remove from cart
                                 </Button>
                             ) : (
-                                <Button disabled variant="default" size="sm">
+                                <Button
+                                    variant="default"
+                                    size="sm"
+                                    onClick={() => {
+                                        addTicketToCart({
+                                            ticketTypeId: seat.ticketTypeId,
+                                            seatId: seat.seatId,
+                                        });
+                                        price && changeTotalPrice(price, true);
+                                    }}
+                                >
                                     Add to cart
                                 </Button>
                             )}

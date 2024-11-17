@@ -1,10 +1,18 @@
+import { useCart } from "@/hooks/useCart";
 import { FC } from "react";
 
-const TotalCart: FC = () => {
+interface Props {
+    totalTickets: () => number;
+}
+
+const TotalCart: FC<Props> = ({ totalTickets }) => {
+    const { totalPrice, currency } = useCart();
     return (
         <div className="flex flex-col">
-            <span>Total for [?] tickets</span>
-            <span className="text-2xl font-semibold">[?] CZK</span>
+            <span>Total for {totalTickets()} tickets</span>
+            <span className="text-2xl font-semibold">
+                {totalPrice} {currency}
+            </span>
         </div>
     );
 };

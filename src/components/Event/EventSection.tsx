@@ -1,11 +1,19 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import SeatingMap from "./SeatingMap";
 import EventInfo from "./EventInfo";
 import { useFetchEvent } from "@/hooks/useFetchEvent";
+import { useCart } from "@/hooks/useCart";
 
 const EventSection: FC = () => {
     const { data: event, loading, error } = useFetchEvent();
+    const { setCurrency } = useCart();
+
+    useEffect(() => {
+        if (!loading && !error && event) {
+            setCurrency(event.currencyIso.toUpperCase());
+        }
+    }, [event]);
 
     return (
         <main className="grow flex flex-col justify-center">
