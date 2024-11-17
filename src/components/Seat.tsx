@@ -4,45 +4,69 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover.tsx";
-import { cn } from "@/lib/utils.ts";
+import { ISeat } from "@/types/types";
 import React from "react";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
-    seatNumber: number;
+    seatRow: number;
+    seat: ISeat;
+    setSelectedSeat: React.Dispatch<React.SetStateAction<string>>;
+    getTicketType: (ticketType: string) => string;
 }
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
-    ({ seatNumber, ...props }, ref) => {
+    ({ seatRow, seat, setSelectedSeat, getTicketType, ...props }, ref) => {
         const isInCart = false;
+
+        /* shows selected seat */
+        const handleOpenChange = (open: boolean) => {
+            if (!open) {
+                setSelectedSeat("");
+            } else setSelectedSeat(seat.seatId);
+        };
+
         return (
-            <Popover>
+            <Popover onOpenChange={handleOpenChange}>
                 <PopoverTrigger>
-                    <div
-                        className={cn(
-                            "size-8 rounded-full bg-zinc-100 hover:bg-zinc-200 transition-color",
-                            props.className
-                        )}
-                        ref={ref}
-                    >
-                        <span className="text-xs text-zinc-400 font-medium">
-                            {seatNumber}
-                        </span>
+                    <div className={props.className} ref={ref}>
+                        {seat.place}
                     </div>
                 </PopoverTrigger>
                 <PopoverContent>
-                    <pre>{JSON.stringify({ seatData: null }, null, 2)}</pre>
+                    <div className="flex flex-col gap-3">
+                        <div className="text-l font-semibold text-gray-800 m-0">
+                            {getTicketType(seat.ticketTypeId)}
+                        </div>
 
-                    <footer className="flex flex-col">
-                        {isInCart ? (
-                            <Button disabled variant="destructive" size="sm">
-                                Remove from cart
-                            </Button>
-                        ) : (
-                            <Button disabled variant="default" size="sm">
-                                Add to cart
-                            </Button>
-                        )}
-                    </footer>
+                        <div className="text-base text-gray-800">
+                            <span className="text-sm font-medium text-gray-600">
+                                Row:
+                            </span>
+                            <span className="font-semibold">{` ${seatRow}`}</span>
+                            ,
+                            <span className="text-sm font-medium text-gray-600">
+                                {" "}
+                                Seat:
+                            </span>
+                            <span className="font-semibold">{` ${seat.place}`}</span>
+                        </div>
+
+                        <footer className="flex flex-col">
+                            {isInCart ? (
+                                <Button
+                                    disabled
+                                    variant="destructive"
+                                    size="sm"
+                                >
+                                    Remove from cart
+                                </Button>
+                            ) : (
+                                <Button disabled variant="default" size="sm">
+                                    Add to cart
+                                </Button>
+                            )}
+                        </footer>
+                    </div>
                 </PopoverContent>
             </Popover>
         );
