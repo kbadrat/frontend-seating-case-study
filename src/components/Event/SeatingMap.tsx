@@ -11,7 +11,7 @@ interface Props {
 const SeatingMap: FC<Props> = ({ eventId }) => {
     const { data: tickets, loading, error } = useFetchEventTickets(eventId);
     const [selectedSeat, setSelectedSeat] = useState<string>("");
-    const { isTicketInCart, currency } = useCart();
+    const { currency, isTicketInCart } = useCart();
 
     function normalizeSeats(tickets: IEventTicketsResponse) {
         tickets.seatRows.forEach((row) => {
@@ -41,6 +41,9 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
     function getSeatClassName(type: string, seatId: string): string {
         const baseClasses =
             "w-7 h-9 flex items-center justify-center text-mg font-semibold rounded-md border-2 ";
+
+        if (isTicketInCart(seatId))
+            return `${baseClasses} bg-green-400 border-gray-300 text-black hover:bg-green-700 hover:text-white transition-transform duration-200  hover:scale-105`;
 
         if (selectedSeat === seatId) {
             if (getTicketType(type) === "VIP ticket") {

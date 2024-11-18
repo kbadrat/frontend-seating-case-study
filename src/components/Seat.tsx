@@ -33,9 +33,6 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
         const { isTicketInCart, addTicketToCart, removeTicketFromCart } =
             useCart();
 
-        const [isInCart, setIsInCart] = React.useState<boolean>(
-            isTicketInCart(seat.seatId)
-        );
         const { changeTotalPrice } = useCart();
         const price = getTicketPrice(seat.ticketTypeId);
 
@@ -45,7 +42,6 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                 seatId: seat.seatId,
             });
             price && changeTotalPrice(price, true);
-            setIsInCart(true);
         };
 
         const handleRemoveFromCart = () => {
@@ -54,7 +50,6 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                 seatId: seat.seatId,
             });
             price && changeTotalPrice(price, false);
-            setIsInCart(false);
         };
 
         /* shows selected seat */
@@ -67,12 +62,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
         return (
             <Popover onOpenChange={handleOpenChange}>
                 <PopoverTrigger>
-                    <div
-                        className={`${props.className} ${
-                            isInCart ? "bg-green-400 hover:bg-green-700" : ""
-                        }`}
-                        ref={ref}
-                    >
+                    <div className={`${props.className} `} ref={ref}>
                         {seat.place}
                     </div>
                 </PopoverTrigger>
@@ -100,7 +90,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                         </div>
 
                         <footer className="flex flex-col">
-                            {isInCart ? (
+                            {isTicketInCart(seat.seatId) ? (
                                 <Button
                                     variant="destructive"
                                     size="sm"
