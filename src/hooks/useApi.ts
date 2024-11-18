@@ -2,7 +2,7 @@ import { apiClient, handleApiError } from "@/services/apiService";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 
-type UseApiOptions = {
+export type UseApiOptions = {
     method?: "GET" | "POST";
     data?: any;
     headers?: Record<string, string>;

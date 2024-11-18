@@ -27,7 +27,7 @@ body {
     min-height: 100vh;
 }
 /* temporarily dark. (light)*/
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
     :root {
         @apply bg-zinc-50 text-zinc-900;
     }

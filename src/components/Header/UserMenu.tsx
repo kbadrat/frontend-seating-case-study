@@ -14,8 +14,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
 import { Button } from "../ui/button";
+import { IUser } from "@/types/types";
 
-const UserMenu: FC = () => {
+interface Props {
+    user: IUser;
+    setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+}
+
+const UserMenu: FC<Props> = ({ user, setUser }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -30,20 +36,22 @@ const UserMenu: FC = () => {
 
                         <div className="flex flex-col text-left">
                             <span className="text-sm font-medium">
-                                John Doe
+                                {`${user.firstName} ${user.lastName}`}
                             </span>
                             <span className="text-xs text-zinc-500">
-                                john.doe@nfctron.com
+                                {user.email}
                             </span>
                         </div>
                     </div>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-[250px]">
-                <DropdownMenuLabel>John Doe</DropdownMenuLabel>
+                <DropdownMenuLabel>{`${user.firstName} ${user.lastName}`}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem disabled>Logout</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setUser(null)}>
+                        Logout
+                    </DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>

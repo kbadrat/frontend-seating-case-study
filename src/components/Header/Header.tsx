@@ -1,9 +1,12 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import UserMenu from "./UserMenu";
+import LoginModal from "./LoginModal";
+import { IUser } from "@/types/types";
 
 const Header: FC = () => {
-    const isLoggedIn = true;
+    const [user, setUser] = useState<IUser | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
         <header>
@@ -17,16 +20,24 @@ const Header: FC = () => {
                     <div className="bg-zinc-100 rounded-md h-8 w-[200px]" />
                     {/* user menu */}
                     <div className="max-w-[250px] w-full flex justify-end">
-                        {isLoggedIn ? (
-                            <UserMenu />
+                        {user ? (
+                            <UserMenu user={user} setUser={setUser} />
                         ) : (
-                            <Button disabled variant="secondary">
+                            <Button
+                                variant="secondary"
+                                onClick={() => setIsModalOpen(true)}
+                            >
                                 Login or register
                             </Button>
                         )}
                     </div>
                 </div>
             </nav>
+            <LoginModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                setUser={setUser}
+            />
         </header>
     );
 };
