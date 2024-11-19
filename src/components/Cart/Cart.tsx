@@ -3,8 +3,10 @@ import { Button } from "../ui/button";
 import TotalCart from "./TotalCart";
 import { useCartContext } from "../../contexts/CartContext";
 import HostModal from "../Login/HostModal";
+import { useLoginContext } from "@/contexts/LoginContext";
 const Cart: FC = () => {
     const { getTotalTickets } = useCartContext();
+    const { user } = useLoginContext();
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
@@ -17,7 +19,7 @@ const Cart: FC = () => {
                 <Button
                     disabled={getTotalTickets() === 0}
                     variant="default"
-                    onClick={() => setIsModalOpen(true)}
+                    // onClick={() => setIsModalOpen(true)}
                 >
                     Checkout now
                 </Button>

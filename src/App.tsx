@@ -1,21 +1,23 @@
 import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
-import Cart from "./components/Cart/Cart";
-import EventSection from "./components/Event/EventSection";
-import { CartProvider } from "./contexts/CartContext";
-import { LoginProvider } from "./contexts/LoginContext";
+import Providers from "./contexts/Providers";
+import EventPage from "./Pages/EventPage";
+import CartPage from "./Pages/CartPage";
 
 function App() {
     return (
-        <div className="flex flex-col grow">
-            <LoginProvider>
-                <CartProvider>
+        <BrowserRouter future={{ v7_startTransition: true }}>
+            <Providers>
+                <div className="flex flex-col grow">
                     <Header />
-                    <EventSection />
-                    <Cart />
-                </CartProvider>
-            </LoginProvider>
-        </div>
+                    <Routes>
+                        <Route path="/" element={<EventPage />} />
+                        <Route path="/cart" element={<CartPage />} />
+                    </Routes>
+                </div>
+            </Providers>
+        </BrowserRouter>
     );
 }
 

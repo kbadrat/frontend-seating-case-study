@@ -6,8 +6,8 @@ import HeaderCart from "./HeaderCart";
 import { useLoginContext } from "@/contexts/LoginContext";
 
 const Header: FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const { user, setUser } = useLoginContext();
+    const { user, setUser, isLoginModalOpen, setIsLoginModalOpen } =
+        useLoginContext();
     useEffect(() => {
         const restoreUser = async () => {
             const token = localStorage.getItem("authToken");
@@ -36,7 +36,7 @@ const Header: FC = () => {
                         ) : (
                             <Button
                                 variant="secondary"
-                                onClick={() => setIsModalOpen(true)}
+                                onClick={() => setIsLoginModalOpen(true)}
                             >
                                 Login or register
                             </Button>
@@ -46,8 +46,8 @@ const Header: FC = () => {
                 </div>
             </nav>
             <LoginModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                isOpen={isLoginModalOpen}
+                onClose={() => setIsLoginModalOpen(false)}
                 setUser={setUser}
             />
         </header>
