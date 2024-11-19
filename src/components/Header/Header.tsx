@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import UserMenu from "./UserMenu";
-import LoginModal from "./LoginModal";
+import LoginModal from "../Login/LoginModal";
 import { IUser } from "@/types/types";
 import HeaderCart from "./HeaderCart";
 
