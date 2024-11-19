@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Seat } from "../Seat";
 import { useFetchEventTickets } from "@/hooks/useFetchEventTickets";
 import { IEventTicketsResponse } from "@/types/types";
@@ -9,9 +9,17 @@ interface Props {
 }
 
 const SeatingMap: FC<Props> = ({ eventId }) => {
-    const { data: tickets, loading, error } = useFetchEventTickets(eventId);
+    const {
+        data: fetchedTickets,
+        loading,
+        error,
+    } = useFetchEventTickets(eventId);
     const [selectedSeat, setSelectedSeat] = useState<string>("");
-    const { currency, isTicketInCart } = useCart();
+    const { tickets, setTickets, isTicketInCart } = useCart();
+
+    useEffect(() => {
+        if (fetchedTickets) setTickets(fetchedTickets);
+    }, [fetchedTickets, setTickets]);
 
     function normalizeSeats(tickets: IEventTicketsResponse) {
         tickets.seatRows.forEach((row) => {
@@ -29,13 +37,6 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
         );
 
         return foundType ? foundType.name : "Ticket";
-    }
-
-    function getTicketPrice(ticketType: string): number | null {
-        const price = tickets?.ticketTypes.find(
-            (type) => type.id === ticketType
-        );
-        return price ? price.price : null;
     }
 
     function getSeatClassName(type: string, seatId: string): string {
@@ -73,7 +74,6 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
                     {row.seats.map((seat) => (
                         <Seat
                             key={seat.seatId}
-                            seatRow={row.seatRow}
                             seat={seat}
                             className={getSeatClassName(
                                 seat.ticketTypeId,
@@ -81,8 +81,6 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
                             )}
                             setSelectedSeat={setSelectedSeat}
                             getTicketType={getTicketType}
-                            getTicketPrice={getTicketPrice}
-                            currency={currency}
                         />
                     ))}
                 </div>

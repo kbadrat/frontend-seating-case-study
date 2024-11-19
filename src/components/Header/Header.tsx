@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button.tsx";
 import UserMenu from "./UserMenu";
 import LoginModal from "./LoginModal";
 import { IUser } from "@/types/types";
+import HeaderCart from "./HeaderCart";
 
 const Header: FC = () => {
     const [user, setUser] = useState<IUser | null>(null);
@@ -42,6 +43,7 @@ const Header: FC = () => {
                             </Button>
                         )}
                     </div>
+                    <HeaderCart />
                 </div>
             </nav>
             <LoginModal

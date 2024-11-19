@@ -4,11 +4,7 @@ import TotalCart from "./TotalCart";
 import { useCart } from "../../hooks/useCart";
 
 const Cart: FC = () => {
-    const { cart } = useCart();
-
-    function getTotalTickets(): number {
-        return cart.tickets?.length ?? 0;
-    }
+    const { getTotalTickets } = useCart();
 
     return (
         <nav className="sticky bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">

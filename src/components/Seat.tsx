@@ -9,48 +9,22 @@ import { ISeat } from "@/types/types";
 import React from "react";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
-    seatRow: number;
     seat: ISeat;
     setSelectedSeat: React.Dispatch<React.SetStateAction<string>>;
     getTicketType: (ticketType: string) => string;
-    getTicketPrice: (ticketType: string) => number | null;
-    currency: string;
 }
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
-    (
-        {
-            seatRow,
-            seat,
-            setSelectedSeat,
-            getTicketType,
+    ({ seat, setSelectedSeat, getTicketType, ...props }, ref) => {
+        const {
+            isTicketInCart,
+            addTicketToCart,
+            removeTicketFromCart,
             getTicketPrice,
+            getTicketPlace,
+            getTicketRow,
             currency,
-            ...props
-        },
-        ref
-    ) => {
-        const { isTicketInCart, addTicketToCart, removeTicketFromCart } =
-            useCart();
-
-        const { changeTotalPrice } = useCart();
-        const price = getTicketPrice(seat.ticketTypeId);
-
-        const handleAddToCart = () => {
-            addTicketToCart({
-                ticketTypeId: seat.ticketTypeId,
-                seatId: seat.seatId,
-            });
-            price && changeTotalPrice(price, true);
-        };
-
-        const handleRemoveFromCart = () => {
-            removeTicketFromCart({
-                ticketTypeId: seat.ticketTypeId,
-                seatId: seat.seatId,
-            });
-            price && changeTotalPrice(price, false);
-        };
+        } = useCart();
 
         /* shows selected seat */
         const handleOpenChange = (open: boolean) => {
@@ -76,17 +50,21 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                             <span className="text-sm font-medium text-gray-600">
                                 Row:
                             </span>
-                            <span className="font-semibold">{` ${seatRow}`}</span>
+                            <span className="font-semibold">{` ${getTicketRow(
+                                seat.seatId
+                            )}`}</span>
                             ,
                             <span className="text-sm font-medium text-gray-600">
                                 {" "}
                                 Seat:
                             </span>
-                            <span className="font-semibold">{` ${seat.place}`}</span>
+                            <span className="font-semibold">{` ${getTicketPlace(
+                                seat.seatId
+                            )}`}</span>
                         </div>
 
                         <div className="text-lg font-bold text-green-600">
-                            {`${price} ${currency.toUpperCase()}`}
+                            {`${getTicketPrice(seat.ticketTypeId)} ${currency}`}
                         </div>
 
                         <footer className="flex flex-col">
@@ -94,7 +72,12 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                 <Button
                                     variant="destructive"
                                     size="sm"
-                                    onClick={handleRemoveFromCart}
+                                    onClick={() =>
+                                        removeTicketFromCart({
+                                            ticketTypeId: seat.ticketTypeId,
+                                            seatId: seat.seatId,
+                                        })
+                                    }
                                 >
                                     Remove from cart
                                 </Button>
@@ -102,7 +85,12 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                 <Button
                                     variant="default"
                                     size="sm"
-                                    onClick={handleAddToCart}
+                                    onClick={() =>
+                                        addTicketToCart({
+                                            ticketTypeId: seat.ticketTypeId,
+                                            seatId: seat.seatId,
+                                        })
+                                    }
                                 >
                                     Add to cart
                                 </Button>
