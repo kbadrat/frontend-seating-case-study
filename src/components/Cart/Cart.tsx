@@ -1,10 +1,11 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button } from "../ui/button";
 import TotalCart from "./TotalCart";
-import { useCart } from "../../hooks/useCart";
-
+import { useCartContext } from "../../contexts/CartContext";
+import HostModal from "../Login/HostModal";
 const Cart: FC = () => {
-    const { getTotalTickets } = useCart();
+    const { getTotalTickets } = useCartContext();
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
         <nav className="sticky bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">
@@ -13,10 +14,18 @@ const Cart: FC = () => {
                 <TotalCart totalTickets={getTotalTickets} />
 
                 {/* checkout button */}
-                <Button disabled={getTotalTickets() === 0} variant="default">
+                <Button
+                    disabled={getTotalTickets() === 0}
+                    variant="default"
+                    onClick={() => setIsModalOpen(true)}
+                >
                     Checkout now
                 </Button>
             </div>
+            <HostModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            ></HostModal>
         </nav>
     );
 };

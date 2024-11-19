@@ -1,4 +1,4 @@
-import { useCart } from "@/hooks/useCart";
+import { useCartContext } from "@/contexts/CartContext";
 import { FC } from "react";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
 }
 
 const TotalCart: FC<Props> = ({ totalTickets }) => {
-    const { totalPrice, currency } = useCart();
+    const { totalPrice, currency } = useCartContext();
     return (
         <div className="flex flex-col">
             <span>Total for {totalTickets()} tickets</span>

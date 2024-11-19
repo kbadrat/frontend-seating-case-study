@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Seat } from "../Seat";
 import { useFetchEventTickets } from "@/hooks/useFetchEventTickets";
 import { IEventTicketsResponse } from "@/types/types";
-import { useCart } from "@/hooks/useCart";
+import { useCartContext } from "@/contexts/CartContext";
 
 interface Props {
     eventId: string;
@@ -15,7 +15,7 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
         error,
     } = useFetchEventTickets(eventId);
     const [selectedSeat, setSelectedSeat] = useState<string>("");
-    const { tickets, setTickets, isTicketInCart } = useCart();
+    const { tickets, setTickets, isTicketInCart } = useCartContext();
 
     useEffect(() => {
         if (fetchedTickets) setTickets(fetchedTickets);

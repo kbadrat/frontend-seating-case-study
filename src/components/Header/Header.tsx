@@ -2,13 +2,12 @@ import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import UserMenu from "./UserMenu";
 import LoginModal from "../Login/LoginModal";
-import { IUser } from "@/types/types";
 import HeaderCart from "./HeaderCart";
+import { useLoginContext } from "@/contexts/LoginContext";
 
 const Header: FC = () => {
-    const [user, setUser] = useState<IUser | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+    const { user, setUser } = useLoginContext();
     useEffect(() => {
         const restoreUser = async () => {
             const token = localStorage.getItem("authToken");

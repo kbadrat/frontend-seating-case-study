@@ -4,7 +4,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover.tsx";
-import { useCart } from "@/hooks/useCart";
+import { useCartContext } from "@/contexts/CartContext";
 import { ISeat } from "@/types/types";
 import React from "react";
 
@@ -24,7 +24,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
             getTicketPlace,
             getTicketRow,
             currency,
-        } = useCart();
+        } = useCartContext();
 
         /* shows selected seat */
         const handleOpenChange = (open: boolean) => {

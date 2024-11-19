@@ -3,11 +3,11 @@ import { FC, useEffect } from "react";
 import SeatingMap from "./SeatingMap";
 import EventInfo from "./EventInfo";
 import { useFetchEvent } from "@/hooks/useFetchEvent";
-import { useCart } from "@/hooks/useCart";
+import { useCartContext } from "@/contexts/CartContext";
 
 const EventSection: FC = () => {
     const { data: event, loading, error } = useFetchEvent();
-    const { setCurrency } = useCart();
+    const { setCurrency } = useCartContext();
 
     useEffect(() => {
         if (!loading && !error && event) {

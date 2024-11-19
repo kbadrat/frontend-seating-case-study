@@ -1,4 +1,4 @@
-import { useCart } from "@/hooks/useCart";
+import { useCartContext } from "@/contexts/CartContext";
 import { FC } from "react";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -13,7 +13,7 @@ const HeaderCart: FC = () => {
         getTicketRow,
         getTicketPlace,
         getTicketPrice,
-    } = useCart();
+    } = useCartContext();
 
     return (
         <Popover>
