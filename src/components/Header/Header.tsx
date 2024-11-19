@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import UserMenu from "./UserMenu";
 import LoginModal from "./LoginModal";
@@ -7,6 +7,17 @@ import { IUser } from "@/types/types";
 const Header: FC = () => {
     const [user, setUser] = useState<IUser | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    useEffect(() => {
+        const restoreUser = async () => {
+            const token = localStorage.getItem("authToken");
+            const user = localStorage.getItem("user");
+
+            if (token && user) setUser(JSON.parse(user));
+        };
+
+        restoreUser();
+    }, []);
 
     return (
         <header>

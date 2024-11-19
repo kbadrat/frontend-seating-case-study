@@ -22,6 +22,12 @@ interface Props {
 }
 
 const UserMenu: FC<Props> = ({ user, setUser }) => {
+    const handleLogout = () => {
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("user");
+        setUser(null);
+    };
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -49,7 +55,7 @@ const UserMenu: FC<Props> = ({ user, setUser }) => {
                 <DropdownMenuLabel>{`${user.firstName} ${user.lastName}`}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem onClick={() => setUser(null)}>
+                    <DropdownMenuItem onClick={handleLogout}>
                         Logout
                     </DropdownMenuItem>
                 </DropdownMenuGroup>

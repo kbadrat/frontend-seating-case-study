@@ -37,7 +37,12 @@ const LoginModal: FC<Props> = ({ isOpen, onClose, setUser }) => {
                 email,
                 password,
             });
-            setUser(response.data.user);
+
+            const { user, token } = response.data;
+            localStorage.setItem("authToken", token);
+            localStorage.setItem("user", JSON.stringify(user));
+
+            setUser(user);
             onClose();
         } catch (error: any) {
             handleApiError(error);
