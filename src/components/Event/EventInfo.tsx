@@ -1,6 +1,8 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import AddToCalendarBtn from "./AddToCalendarBtn";
 import { dateFormat } from "@/services/dateFormat";
+import CalendarIcon from "../../public/calendar.svg";
+import LocationIcon from "../../public/location.svg";
 
 interface Props {
     name: string;
@@ -20,25 +22,66 @@ const EventInfo: FC<Props> = ({
     place,
 }) => {
     const [dateFromFormatted, dateToFormatted] = dateFormat(dateFrom, dateTo);
+    const [isDescriptionExpanded, setDescriptionExpanded] = useState(false);
+
+    const toggleDescription = () => {
+        setDescriptionExpanded(!isDescriptionExpanded);
+    };
+
+    // Shortened description for preview
+    const shortDescription = description.slice(0, 150) + "...";
 
     return (
-        <aside className="w-full max-w-sm bg-white rounded-md shadow-sm p-3 flex flex-col gap-2">
-            {/* event date */}
-            <p>{`${dateFromFormatted} - ${dateToFormatted}`}</p>
-            {/* event address */}
-            <p>{place}</p>
-            {/* event header image */}
+        <aside className="w-full max-w-sm bg-white rounded-lg shadow-lg p-6 flex flex-col gap-4">
+            {/* Event Date */}
+            <div className="flex items-center text-sm text-gray-600 font-medium">
+                <img
+                    src={CalendarIcon}
+                    alt="Calendar Icon"
+                    className="w-4 h-4 mr-2"
+                />
+                <span>{`${dateFromFormatted} - ${dateToFormatted}`}</span>
+            </div>
+
+            {/* Event Image */}
             <img
                 src={image}
                 alt={name}
-                className="rounded-md h-auto w-full object-cover"
+                className="rounded-lg w-full h-56 object-cover shadow-md"
             />
-            {/* event name */}
-            <h1 className="text-xl text-zinc-900 font-semibold">{name}</h1>
-            {/* event description */}
-            <p className="text-sm text-zinc-500">{description}</p>
-            {/* add to calendar button */}
-            <AddToCalendarBtn />
+
+            {/* Event Name */}
+            <h1 className="text-2xl text-gray-900 font-semibold mt-2">
+                {name}
+            </h1>
+
+            {/* Event Description */}
+            <div className="text-sm text-gray-600 mt-1">
+                <p className={`${isDescriptionExpanded ? "" : "line-clamp-3"}`}>
+                    {isDescriptionExpanded ? description : shortDescription}
+                </p>
+                {/* Toggle button for expanding the description */}
+                <button
+                    onClick={toggleDescription}
+                    className="text-sm text-blue-600 mt-2 font-medium"
+                >
+                    {isDescriptionExpanded ? "Show less" : "Read more"}
+                </button>
+            </div>
+            {/* Event Address */}
+            <div className="flex items-center text-sm text-gray-600 font-medium">
+                <img
+                    src={LocationIcon}
+                    alt="Location Icon"
+                    className="w-4 h-4 mr-2"
+                />
+                <span>{place}</span>
+            </div>
+
+            {/* Add to Calendar Button */}
+            <div className="mt-4">
+                <AddToCalendarBtn />
+            </div>
         </aside>
     );
 };
