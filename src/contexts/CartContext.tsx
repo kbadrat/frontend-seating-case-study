@@ -25,11 +25,7 @@ interface CartContextType {
     getTicketPrice: (ticketType: string) => number | null;
     getTicketRow: (seatId: string) => number | null;
     getTicketPlace: (seatId: string) => number | null;
-    getEventDetails: () => {
-        name: string;
-        dateFrom: string | Date | null;
-        dateTo: string | Date | null;
-    };
+    getEventDetails: () => IEvent | null;
     setEventDetails: React.Dispatch<React.SetStateAction<IEvent | null>>;
     getTicketTypeName: (ticketTypeId: string) => string;
 }
@@ -108,15 +104,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const getEventDetails = () => {
-        if (!eventDetails) {
-            return { name: "Unknown Event", dateFrom: null, dateTo: null };
-        }
-
-        return {
-            name: eventDetails.namePub,
-            dateFrom: eventDetails.dateFrom,
-            dateTo: eventDetails.dateTo,
-        };
+        return eventDetails;
     };
 
     const getTicketTypeName = (ticketTypeId: string): string => {
