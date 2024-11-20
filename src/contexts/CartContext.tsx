@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, ReactNode } from "react";
 import {
+    IEvent,
     IEventTicketsResponse,
     IOrderInput,
     IOrderTicket,
@@ -24,6 +25,13 @@ interface CartContextType {
     getTicketPrice: (ticketType: string) => number | null;
     getTicketRow: (seatId: string) => number | null;
     getTicketPlace: (seatId: string) => number | null;
+    getEventDetails: () => {
+        name: string;
+        dateFrom: string | Date | null;
+        dateTo: string | Date | null;
+    };
+    setEventDetails: React.Dispatch<React.SetStateAction<IEvent | null>>;
+    getTicketTypeName: (ticketTypeId: string) => string;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -37,6 +45,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [currency, setCurrency] = useState<string>("CZK");
     const [tickets, setTickets] = useState<IEventTicketsResponse | null>(null);
+    const [eventDetails, setEventDetails] = useState<IEvent | null>(null);
 
     const getTotalTickets = (): number => {
         return cart.tickets?.length ?? 0;
@@ -98,6 +107,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         changeTotalPrice(getTicketPrice(ticket.ticketTypeId), false);
     };
 
+    const getEventDetails = () => {
+        if (!eventDetails) {
+            return { name: "Unknown Event", dateFrom: null, dateTo: null };
+        }
+
+        return {
+            name: eventDetails.namePub,
+            dateFrom: eventDetails.dateFrom,
+            dateTo: eventDetails.dateTo,
+        };
+    };
+
+    const getTicketTypeName = (ticketTypeId: string): string => {
+        const ticketType = tickets?.ticketTypes.find(
+            (type) => type.id === ticketTypeId
+        );
+        return ticketType ? ticketType.name : "Unknown Type";
+    };
+
     return (
         <CartContext.Provider
             value={{
@@ -117,6 +145,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 getTicketPrice,
                 getTicketRow,
                 getTicketPlace,
+                getEventDetails,
+                setEventDetails,
+                getTicketTypeName,
             }}
         >
             {children}

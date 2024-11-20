@@ -4,14 +4,16 @@ import SeatingMap from "./SeatingMap";
 import EventInfo from "./EventInfo";
 import { useFetchEvent } from "@/hooks/useFetchEvent";
 import { useCartContext } from "@/contexts/CartContext";
+import Cart from "../Cart/Cart";
 
 const EventSection: FC = () => {
     const { data: event, loading, error } = useFetchEvent();
-    const { setCurrency } = useCartContext();
+    const { setCurrency, setEventDetails } = useCartContext();
 
     useEffect(() => {
         if (!loading && !error && event) {
             setCurrency(event.currencyIso.toUpperCase());
+            setEventDetails(event);
         }
     }, [event]);
 
@@ -24,17 +26,20 @@ const EventSection: FC = () => {
             ) : error ? (
                 <p style={{ color: "red" }}>{error}</p>
             ) : event ? (
-                <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
-                    <SeatingMap eventId={event.eventId} />
-                    <EventInfo
-                        name={event.namePub}
-                        description={event.description}
-                        dateFrom={event.dateFrom}
-                        dateTo={event.dateTo}
-                        image={event.headerImageUrl}
-                        place={event.place}
-                    />
-                </div>
+                <>
+                    <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
+                        <SeatingMap eventId={event.eventId} />
+                        <EventInfo
+                            name={event.namePub}
+                            description={event.description}
+                            dateFrom={event.dateFrom}
+                            dateTo={event.dateTo}
+                            image={event.headerImageUrl}
+                            place={event.place}
+                        />
+                    </div>
+                    <Cart />
+                </>
             ) : null}
         </main>
     );
