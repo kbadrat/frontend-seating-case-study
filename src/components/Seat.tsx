@@ -5,6 +5,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover.tsx";
 import { useCartContext } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { ISeat } from "@/types/types";
 import React from "react";
 
@@ -16,6 +17,7 @@ interface SeatProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
     ({ seat, setSelectedSeat, getTicketType, ...props }, ref) => {
+        const { messages } = useLanguage();
         const {
             isTicketInCart,
             addTicketToCart,
@@ -48,7 +50,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
 
                         <div className="text-base text-gray-800">
                             <span className="text-sm font-medium text-gray-600">
-                                Row:
+                                {messages.cart.row}:
                             </span>
                             <span className="font-semibold">{` ${getTicketRow(
                                 seat.seatId
@@ -56,7 +58,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                             ,
                             <span className="text-sm font-medium text-gray-600">
                                 {" "}
-                                Seat:
+                                {messages.cart.seat}:
                             </span>
                             <span className="font-semibold">{` ${getTicketPlace(
                                 seat.seatId
@@ -79,7 +81,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                         })
                                     }
                                 >
-                                    Remove from cart
+                                    {messages.cart.removeFromCart}
                                 </Button>
                             ) : (
                                 <Button
@@ -92,7 +94,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                         })
                                     }
                                 >
-                                    Add to cart
+                                    {messages.cart.addToCart}
                                 </Button>
                             )}
                         </footer>

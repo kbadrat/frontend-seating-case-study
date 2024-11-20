@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import Input from "../ui/input";
 import Modal from "../ui/modal";
 import { useLoginContext } from "@/contexts/LoginContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Props {
     isOpen: boolean;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const GuestFormModal: FC<Props> = ({ isOpen, onClose }) => {
+    const { messages } = useLanguage();
     const [email, setEmail] = useState<string>("");
     const [firstName, setFirstName] = useState<string>("");
     const [lastName, setLastName] = useState<string>("");
@@ -37,7 +39,7 @@ const GuestFormModal: FC<Props> = ({ isOpen, onClose }) => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">
-                        Email
+                        {messages.cart.email}
                     </label>
                     <Input
                         type="email"
@@ -49,7 +51,7 @@ const GuestFormModal: FC<Props> = ({ isOpen, onClose }) => {
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">
-                        First Name
+                        {messages.profile.firstName}
                     </label>
                     <Input
                         type="text"
@@ -61,7 +63,7 @@ const GuestFormModal: FC<Props> = ({ isOpen, onClose }) => {
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">
-                        Last Name
+                        {messages.profile.lastName}
                     </label>
                     <Input
                         type="text"
@@ -72,7 +74,7 @@ const GuestFormModal: FC<Props> = ({ isOpen, onClose }) => {
                     />
                 </div>
                 <div className="flex justify-end gap-2">
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit">{messages.cart.submit}</Button>
                 </div>
             </form>
         </Modal>

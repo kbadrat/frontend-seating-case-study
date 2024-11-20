@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef } from "react";
 import { Button } from "../ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ModalProps {
     modalName: string;
@@ -8,6 +9,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ modalName, children, onClose }) => {
+    const { messages } = useLanguage();
     const modalRef = useRef<HTMLDivElement>(null);
 
     const handleClose = () => {
@@ -35,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({ modalName, children, onClose }) => {
                 <div className="flex justify-between items-center">
                     <h2 className="text-lg font-bold mb-4">{modalName}</h2>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {messages.cart.close}
                     </Button>
                 </div>
                 <div>{children}</div>

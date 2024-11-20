@@ -3,8 +3,10 @@ import { FC, useState } from "react";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeaderCart: FC = () => {
+    const { messages } = useLanguage();
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const {
         cart,
@@ -30,7 +32,7 @@ const HeaderCart: FC = () => {
                     variant="secondary"
                     className="relative hover:bg-gray-100 px-4 py-2 rounded-lg"
                 >
-                    <span>Cart</span>
+                    <span>{messages.cart.cart}</span>
                     {getTotalTickets() > 0 && (
                         <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
                             {getTotalTickets()}
@@ -45,7 +47,7 @@ const HeaderCart: FC = () => {
             >
                 <div className="space-y-4">
                     <h2 className="text-lg font-semibold text-gray-800 border-b pb-2">
-                        Your Cart
+                        {messages.cart.yourCart}
                     </h2>
 
                     {cart.tickets?.length ? (
@@ -56,9 +58,11 @@ const HeaderCart: FC = () => {
                                     className="flex justify-between items-center bg-gray-50 rounded-lg p-2 shadow-sm"
                                 >
                                     <div className="text-sm text-gray-700">
-                                        <span className="font-semibold text-gray-800">{`Row: ${getTicketRow(
-                                            ticket.seatId
-                                        )}, Seat: ${getTicketPlace(
+                                        <span className="font-semibold text-gray-800">{`${
+                                            messages.cart.row
+                                        }: ${getTicketRow(ticket.seatId)}, ${
+                                            messages.cart.seat
+                                        }: ${getTicketPlace(
                                             ticket.seatId
                                         )}`}</span>
                                         <br />
@@ -73,16 +77,14 @@ const HeaderCart: FC = () => {
                                         }
                                         className="text-xs text-red-600 font-bold hover:underline"
                                     >
-                                        Remove
+                                        {messages.cart.remove}
                                     </Button>
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <div className="text-center text-gray-500">
-                            <p className="text-sm">
-                                It's empty here for now...
-                            </p>
+                            <p className="text-sm">{messages.cart.empty}</p>
                         </div>
                     )}
 
@@ -91,7 +93,7 @@ const HeaderCart: FC = () => {
                             <div className="mt-4 border-t pt-2">
                                 <div className="text-sm flex justify-between">
                                     <span className="font-medium text-gray-700">
-                                        Total:
+                                        {messages.cart.total}
                                     </span>
                                     <span className="font-semibold text-gray-800">{`${totalPrice} ${currency}`}</span>
                                 </div>
@@ -103,7 +105,7 @@ const HeaderCart: FC = () => {
                                     className="w-full bg-blue-500 text-white hover:bg-blue-600"
                                     onClick={handleCheckout}
                                 >
-                                    Go to Checkout
+                                    {messages.cart.goToCheckout}
                                 </Button>
                             </div>
                         </>

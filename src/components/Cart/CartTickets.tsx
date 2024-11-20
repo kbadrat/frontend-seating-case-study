@@ -1,8 +1,10 @@
 import { useCartContext } from "@/contexts/CartContext";
 import { FC } from "react";
 import { Button } from "../ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CartTickets: FC = () => {
+    const { messages } = useLanguage();
     const {
         cart,
         removeTicketFromCart,
@@ -37,11 +39,12 @@ const CartTickets: FC = () => {
                                 </p>
                                 {/* Ticket Seat Details */}
                                 <p className="text-gray-600 ">
-                                    Row {ticketRow}, Seat {ticketPlace}
+                                    {messages.cart.row} {ticketRow},{" "}
+                                    {messages.cart.seat} {ticketPlace}
                                 </p>
                                 {/* Ticket Price */}
                                 <p className="text-gray-600 mt-2">
-                                    Price:{" "}
+                                    {messages.cart.price}:{" "}
                                     <span className="font-bold text-indigo-700">
                                         {ticketPrice} {currency}
                                     </span>
@@ -54,7 +57,7 @@ const CartTickets: FC = () => {
                                 className="ml-4"
                                 onClick={() => removeTicketFromCart(ticket)}
                             >
-                                Remove
+                                {messages.cart.remove}
                             </Button>
                         </div>
                     );

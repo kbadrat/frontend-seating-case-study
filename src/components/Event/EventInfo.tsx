@@ -3,6 +3,7 @@ import AddToCalendarBtn from "./AddToCalendarBtn";
 import { dateFormat } from "@/services/dateFormat";
 import CalendarIcon from "../../public/calendar.svg";
 import LocationIcon from "../../public/location.svg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Props {
     name: string;
@@ -21,6 +22,7 @@ const EventInfo: FC<Props> = ({
     image,
     place,
 }) => {
+    const { messages } = useLanguage();
     const [dateFromFormatted, dateToFormatted] = dateFormat(dateFrom, dateTo);
     const [isDescriptionExpanded, setDescriptionExpanded] = useState(false);
 
@@ -65,7 +67,9 @@ const EventInfo: FC<Props> = ({
                     onClick={toggleDescription}
                     className="text-sm text-blue-600 mt-2 font-medium"
                 >
-                    {isDescriptionExpanded ? "Show less" : "Read more"}
+                    {isDescriptionExpanded
+                        ? messages.eventPage.showLess
+                        : messages.eventPage.readMore}
                 </button>
             </div>
             {/* Event Address */}

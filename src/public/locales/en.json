@@ -1,0 +1,61 @@
+{
+    "header":{
+        "login": "Login or register",
+        "logout" : "Logout"
+    },
+    "eventPage": {
+      "remindCalendar": "Remind me via",
+      "retryBtn": "Retry",
+      "readMore": "Read more",
+      "showLess" : "Show less"
+    },
+    "profile" : {
+        "firstName" : "First Name",
+        "lastName" : "Last Name",
+        "login" : "Login",
+        "continueGuest" : "Continue as Guest",
+        "password" : "Password",
+        "invalid" : "You have entered an invalid username or password!",
+        "loading" : "Loading...",
+        "enterEmail" : "Enter your email",
+        "enterPassword" : "Enter your password"
+        
+    },
+    "cart" : {
+        "cart": "Cart",
+        "yourCart" : "Your Cart",
+        "checkoutNow" : "Checkout now",
+        "remove" : "Remove",
+        "empty" : "It's empty here for now...",
+        "emptyCart" : "Your cart is empty",
+        "total" : "Total:",
+        "goToCheckout" : "Go to Checkout",
+        "processing" : "Processing...",
+        "addSomeTickets" : "Add some tickets to your cart to proceed.",
+        "browseEvents" : "Browse Events",
+        "ticketsSelected": "tickets selected for",
+        "orderSummary" : "Order Summary",
+        "totalTickets" : "Total Tickets",
+        "totalPrice" : "Total Price",
+        "billingInfo" : "Billing Information",
+        "row" : "Row",
+        "seat" : "Seat",
+        "price" : "Price",
+        "thankYouForOrder" : "Thank you for your order!",
+        "successfully" : "Your order was successfully placed. The order ID is",
+        "confirmationEmail" : "A confirmation email with all the details will be sent to you shortly.",
+        "yourInfo" : "Your Information",
+        "contactUs" : "If you have any questions, please feel free to contact us.",
+        "browseOtherEvents" : "Browse other Events",
+        "name" : "Name",
+        "email" : "Email",
+        "totalFor" : "Total for",
+        "tickets" : "tickets",
+        "submit" : "Submit",
+        "removeFromCart" : "Remove from cart",
+        "addToCart" : "Add to cart",
+        "close" : "Close",
+        "proceedToCheckout" : "Proceed to Checkout"
+    }
+  }
+  

@@ -3,6 +3,7 @@ import { IUser } from "@/types/types";
 import { FC } from "react";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Props {
     orderId: string;
@@ -10,18 +11,19 @@ interface Props {
 }
 
 const SuccessfullyOrder: FC<Props> = ({ orderId, customer }) => {
+    const { messages } = useLanguage();
     const navigate = useNavigate();
 
     return (
         <div className="mt-20 bg-gray-50 flex items-center justify-center flex-col">
             <div className="max-w-lg w-full bg-white shadow-lg rounded-lg p-8 space-y-6">
                 <h2 className="text-3xl font-semibold text-green-800 text-center">
-                    Thank you for your order!
+                    {messages.cart.thankYouForOrder}
                 </h2>
 
                 <div className="text-center text-gray-700">
                     <p className="text-lg mb-2">
-                        Your order was successfully placed. The order ID is:{" "}
+                        {messages.cart.successfully}:{" "}
                         <span className="font-bold text-indigo-600">
                             {orderId}
                         </span>
@@ -29,23 +31,26 @@ const SuccessfullyOrder: FC<Props> = ({ orderId, customer }) => {
                     </p>
 
                     <p className="text-gray-500 mt-2">
-                        A confirmation email with all the details will be sent
-                        to you shortly.
+                        {messages.cart.confirmationEmail}
                     </p>
                 </div>
 
                 {customer && (
                     <div className="bg-green-50 p-4 rounded-md border border-green-300 mt-6">
                         <h3 className="text-xl font-medium text-green-700 text-center mb-4">
-                            Your Information
+                            {messages.cart.yourInfo}
                         </h3>
                         <div className="text-center text-gray-700">
                             <p className="text-lg">
-                                <span className="font-semibold">Name: </span>
+                                <span className="font-semibold">
+                                    {messages.cart.name}:{" "}
+                                </span>
                                 {customer.firstName} {customer.lastName}
                             </p>
                             <p className="text-lg">
-                                <span className="font-semibold">Email: </span>
+                                <span className="font-semibold">
+                                    {messages.cart.email}:{" "}
+                                </span>
                                 {customer.email}
                             </p>
                         </div>
@@ -53,10 +58,7 @@ const SuccessfullyOrder: FC<Props> = ({ orderId, customer }) => {
                 )}
 
                 <div className="text-center mt-8">
-                    <p className="text-gray-600">
-                        If you have any questions, please feel free to contact
-                        us.
-                    </p>
+                    <p className="text-gray-600">{messages.cart.contactUs}</p>
                 </div>
             </div>
             <Button
@@ -64,7 +66,7 @@ const SuccessfullyOrder: FC<Props> = ({ orderId, customer }) => {
                 className="mt-10 px-6 py-3"
                 onClick={() => navigate("/")}
             >
-                Browse other Events
+                {messages.cart.browseOtherEvents}
             </Button>
         </div>
     );

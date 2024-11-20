@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button.tsx";
 import UserMenu from "./UserMenu";
 import HeaderCart from "./HeaderCart";
 import { useLoginContext } from "@/contexts/LoginContext";
+import LanguageSwitcher from "../LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Header: FC = () => {
+    const { messages } = useLanguage();
     const { user, setUser, openLoginModal } = useLoginContext();
 
     useEffect(() => {
@@ -21,7 +24,7 @@ const Header: FC = () => {
     return (
         <header>
             <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center">
-                <div className="max-w-screen-lg p-4 grow flex items-center justify-between gap-3">
+                <div className="max-w-screen-lg p-4 grow flex items-center justify-between gap-2">
                     {/* application/author image/logo placeholder */}
                     <div className="max-w-[250px] w-full flex">
                         <div className="bg-zinc-100 rounded-md size-12" />
@@ -37,11 +40,14 @@ const Header: FC = () => {
                                 variant="secondary"
                                 onClick={openLoginModal}
                             >
-                                Login or register
+                                {messages.header.login}
                             </Button>
                         )}
                     </div>
-                    <HeaderCart />
+                    <div className="flex gap-2">
+                        <HeaderCart />
+                        <LanguageSwitcher />
+                    </div>
                 </div>
             </nav>
         </header>

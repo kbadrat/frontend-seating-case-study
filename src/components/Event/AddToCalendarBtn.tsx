@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Button } from "../ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Props {
     name: string;
@@ -16,6 +17,7 @@ const AddToCalendarBtn: FC<Props> = ({
     dateTo,
     place,
 }) => {
+    const { messages } = useLanguage();
     const formatDateForGoogleCalendar = (date: string | Date): string => {
         const d = new Date(date);
         const year = d.getUTCFullYear();
@@ -41,7 +43,9 @@ const AddToCalendarBtn: FC<Props> = ({
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                <span className="text-gray-500 mr-1">Remind me via</span>
+                <span className="text-gray-500 mr-1">
+                    {messages.eventPage.remindCalendar}
+                </span>
                 <span className="text-blue-600 font-semibold">
                     Google Calendar
                 </span>

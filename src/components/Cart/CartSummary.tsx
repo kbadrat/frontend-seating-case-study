@@ -1,4 +1,5 @@
 import { useCartContext } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { IUser } from "@/types/types";
 import { FC } from "react";
 
@@ -7,12 +8,13 @@ interface Props {
 }
 
 const CartSummary: FC<Props> = ({ customer }) => {
+    const { messages } = useLanguage();
     const { totalPrice, currency, getTotalTickets } = useCartContext();
 
     return (
         <section className="mt-4 p-6">
             <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">
-                Order Summary
+                {messages.cart.orderSummary}
             </h2>
             <div
                 className={`grid gap-6 grid-cols-1  ${
@@ -22,7 +24,7 @@ const CartSummary: FC<Props> = ({ customer }) => {
                 {/* Total Tickets */}
                 <div className="border border-gray-300 bg-white p-6 rounded-lg text-center">
                     <h3 className="text-xl font-medium text-gray-600 mb-3">
-                        Total Tickets
+                        {messages.cart.totalTickets}
                     </h3>
                     <p className="text-3xl font-bold text-gray-800">
                         {getTotalTickets()}
@@ -31,7 +33,7 @@ const CartSummary: FC<Props> = ({ customer }) => {
                 {/* Total Price */}
                 <div className="border border-gray-300 bg-white p-6 rounded-lg text-center">
                     <h3 className="text-xl font-medium text-gray-600 mb-3">
-                        Total Price
+                        {messages.cart.totalPrice}
                     </h3>
                     <p className="text-3xl font-bold text-indigo-600">
                         {totalPrice} {currency}
@@ -42,7 +44,7 @@ const CartSummary: FC<Props> = ({ customer }) => {
                 {customer && (
                     <div className="border border-gray-300 bg-white p-6 rounded-lg text-center">
                         <h3 className="text-xl font-medium text-gray-600 mb-3">
-                            Billing Information
+                            {messages.cart.billingInfo}
                         </h3>
                         <p className="text-lg font-semibold text-gray-800">
                             {customer.firstName} {customer.lastName}

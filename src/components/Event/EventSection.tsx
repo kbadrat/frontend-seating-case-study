@@ -6,8 +6,10 @@ import { useFetchEvent } from "@/hooks/useFetchEvent";
 import { useCartContext } from "@/contexts/CartContext";
 import Cart from "../Cart/Cart";
 import EventSectionLouder from "../Loaders/EventSectionLouder";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const EventSection: FC = () => {
+    const { messages } = useLanguage();
     const { data: event, loading, error } = useFetchEvent();
     const { setCurrency, setEventDetails } = useCartContext();
 
@@ -33,7 +35,7 @@ const EventSection: FC = () => {
                         onClick={reloadPage}
                         className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition-all"
                     >
-                        Retry
+                        {messages.eventPage.retryBtn}
                     </button>
                 </div>
             ) : event ? (

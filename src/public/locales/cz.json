@@ -1,0 +1,59 @@
+{
+  "header": {
+    "login": "Přihlásit se nebo zaregistrovat",
+    "logout": "Odhlásit se"
+  },
+  "eventPage": {
+    "remindCalendar": "Připomenout přes",
+    "retryBtn": "Zkusit znovu",
+    "readMore": "Přečíst více",
+    "showLess": "Zobrazit méně"
+  },
+  "profile": {
+    "firstName": "Jméno",
+    "lastName": "Příjmení",
+    "login": "Přihlásit se",
+    "continueGuest": "Pokračovat jako host",
+    "password": "Heslo",
+    "invalid": "Zadali jste neplatné uživatelské jméno nebo heslo!",
+    "loading": "Načítání...",
+    "enterEmail": "Zadejte svůj email",
+    "enterPassword": "Zadejte své heslo"
+  },
+  "cart": {
+    "cart": "Košík",
+    "yourCart": "Váš košík",
+    "checkoutNow": "Zaplatit nyní",
+    "remove": "Odstranit",
+    "empty": "Je tu zatím prázdno...",
+    "emptyCart": "Váš košík je prázdný",
+    "total": "Celkem:",
+    "goToCheckout": "Přejít k platbě",
+    "processing": "Zpracovávám...",
+    "addSomeTickets": "Přidejte lístky do košíku, abyste mohli pokračovat.",
+    "browseEvents": "Prohlížet události",
+    "ticketsSelected": "lístky vybrané pro",
+    "orderSummary": "Souhrn objednávky",
+    "totalTickets": "Celkem lístků",
+    "totalPrice": "Celková cena",
+    "billingInfo": "Fakturační informace",
+    "row": "Řada",
+    "seat": "Místo",
+    "price": "Cena",
+    "thankYouForOrder": "Děkujeme za vaši objednávku!",
+    "successfully": "Vaše objednávka byla úspěšně odeslána. Číslo objednávky je",
+    "confirmationEmail": "Potvrzovací e-mail s podrobnostmi bude odeslán na vaši e-mailovou adresu.",
+    "yourInfo": "Vaše údaje",
+    "contactUs": "Pokud máte jakékoliv otázky, neváhejte nás kontaktovat.",
+    "browseOtherEvents": "Prohlédnout jiné události",
+    "name": "Jméno",
+    "email": "E-mail",
+    "totalFor": "Celkem za",
+    "tickets": "lístky",
+    "submit": "Odeslat",
+    "removeFromCart": "Odstranit z košíku",
+    "addToCart": "Přidat do košíku",
+    "close": "Zavřít",
+    "proceedToCheckout": "Přejít k pokladně"
+  }
+}

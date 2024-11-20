@@ -3,7 +3,9 @@ import { Button } from "../ui/button";
 import TotalCart from "./TotalCart";
 import { useCartContext } from "../../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 const Cart: FC = () => {
+    const { messages } = useLanguage();
     const { getTotalTickets } = useCartContext();
     const navigate = useNavigate();
 
@@ -20,7 +22,7 @@ const Cart: FC = () => {
                     variant="default"
                     onClick={() => navigate("/cart")}
                 >
-                    Checkout now
+                    {messages.cart.checkoutNow}
                 </Button>
             </div>
         </nav>

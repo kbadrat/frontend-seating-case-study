@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Button } from "../ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Props {
     getTotalTickets: () => number;
@@ -12,6 +13,7 @@ const CartCheckoutBtn: FC<Props> = ({
     handleCreateOrder,
     loading,
 }) => {
+    const { messages } = useLanguage();
     return (
         <div className="mt-2 flex justify-end p-6">
             <Button
@@ -23,10 +25,10 @@ const CartCheckoutBtn: FC<Props> = ({
                 {loading ? (
                     <>
                         <span className="animate-spin mr-3 w-5 h-5 border-4 border-t-4 border-white rounded-full"></span>
-                        Processing...
+                        {messages.cart.processing}
                     </>
                 ) : (
-                    "Proceed to Checkout"
+                    messages.cart.proceedToCheckout
                 )}
             </Button>
         </div>

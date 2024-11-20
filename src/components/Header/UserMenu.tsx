@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import { Button } from "../ui/button";
 import { IUser } from "@/types/types";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Props {
     user: IUser;
@@ -22,6 +23,7 @@ interface Props {
 }
 
 const UserMenu: FC<Props> = ({ user, setUser }) => {
+    const { messages } = useLanguage();
     const handleLogout = () => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("user");
@@ -56,7 +58,7 @@ const UserMenu: FC<Props> = ({ user, setUser }) => {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem onClick={handleLogout}>
-                        Logout
+                        {messages.header.logout}
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>

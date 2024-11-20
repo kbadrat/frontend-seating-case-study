@@ -4,6 +4,7 @@ import Input from "../ui/input";
 import { apiClient, handleApiError } from "@/services/apiService";
 import { IUser } from "@/types/types";
 import Modal from "../ui/modal";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Props {
     isOpen: boolean;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const LoginModal: FC<Props> = ({ isOpen, onClose, setUser }) => {
+    const { messages } = useLanguage();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
@@ -54,41 +56,43 @@ const LoginModal: FC<Props> = ({ isOpen, onClose, setUser }) => {
     };
 
     return (
-        <Modal modalName="Login" onClose={onClose}>
+        <Modal modalName={messages.profile.login} onClose={onClose}>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">
-                        Email
+                        {messages.cart.email}
                     </label>
                     <Input
                         type="email"
                         value={email}
                         setValue={setEmail}
                         required
-                        placeholder="Enter your email"
+                        placeholder={messages.profile.enterEmail}
                     />
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-2">
-                        Password
+                        {messages.profile.password}
                     </label>
                     <Input
                         type="password"
                         value={password}
                         setValue={setPassword}
                         required
-                        placeholder="Enter your password"
+                        placeholder={messages.profile.enterPassword}
                     />
                 </div>
                 <div className="flex justify-end gap-2">
                     <Button type="submit" disabled={loading}>
-                        {loading ? "Loading..." : "Login"}
+                        {loading
+                            ? messages.profile.loading
+                            : messages.profile.login}
                     </Button>
                 </div>
             </form>
             {error && (
                 <div className="text-red-500 mt-4 font-semibold text-center">
-                    You have entered an invalid username or password!
+                    {messages.profile.invalid}
                 </div>
             )}
         </Modal>

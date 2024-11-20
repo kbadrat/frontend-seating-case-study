@@ -1,18 +1,20 @@
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "../ui/button";
 
 const CartEmpty = () => {
+    const { messages } = useLanguage();
     return (
         <div className="text-center text-gray-600 mt-20">
-            <h2 className="text-2xl font-semibold">Your cart is empty</h2>
-            <p className="mt-4 text-lg">
-                Add some tickets to your cart to proceed.
-            </p>
+            <h2 className="text-2xl font-semibold">
+                {messages.cart.emptyCart}
+            </h2>
+            <p className="mt-4 text-lg">{messages.cart.addSomeTickets}</p>
             <Button
                 variant="default"
                 className="mt-6 px-6 py-3"
                 onClick={() => window.history.back()}
             >
-                Browse Events
+                {messages.cart.browseEvents}
             </Button>
         </div>
     );
