@@ -1,4 +1,4 @@
-import { IOrderInput, IOrderResponse } from "@/types/types";
+import { IOrderInput } from "@/types/types";
 import { apiClient } from "./apiService";
 
 export const createOrder = async (orderData: IOrderInput) => {

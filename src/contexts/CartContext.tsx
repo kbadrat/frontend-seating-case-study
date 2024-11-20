@@ -28,6 +28,7 @@ interface CartContextType {
     getEventDetails: () => IEvent | null;
     setEventDetails: React.Dispatch<React.SetStateAction<IEvent | null>>;
     getTicketTypeName: (ticketTypeId: string) => string;
+    resetCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -36,7 +37,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [cart, setCart] = useState<IOrderInput>({
         eventId: "",
         tickets: null,
-        user: undefined,
+        user: null,
     });
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [currency, setCurrency] = useState<string>("CZK");
@@ -114,6 +115,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return ticketType ? ticketType.name : "Unknown Type";
     };
 
+    const resetCart = () => {
+        setCart({
+            eventId: "",
+            tickets: null,
+            user: null,
+        });
+        setTotalPrice(0);
+        setCurrency("CZK");
+        setTickets(null);
+        setEventDetails(null);
+    };
+
     return (
         <CartContext.Provider
             value={{
@@ -136,6 +149,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 getEventDetails,
                 setEventDetails,
                 getTicketTypeName,
+                resetCart,
             }}
         >
             {children}

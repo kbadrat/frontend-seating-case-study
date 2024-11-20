@@ -1,13 +1,12 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import UserMenu from "./UserMenu";
-import LoginModal from "../Login/LoginModal";
 import HeaderCart from "./HeaderCart";
 import { useLoginContext } from "@/contexts/LoginContext";
 
 const Header: FC = () => {
-    const { user, setUser, isLoginModalOpen, setIsLoginModalOpen } =
-        useLoginContext();
+    const { user, setUser, openLoginModal } = useLoginContext();
+
     useEffect(() => {
         const restoreUser = async () => {
             const token = localStorage.getItem("authToken");
@@ -36,7 +35,7 @@ const Header: FC = () => {
                         ) : (
                             <Button
                                 variant="secondary"
-                                onClick={() => setIsLoginModalOpen(true)}
+                                onClick={openLoginModal}
                             >
                                 Login or register
                             </Button>
@@ -45,11 +44,6 @@ const Header: FC = () => {
                     <HeaderCart />
                 </div>
             </nav>
-            <LoginModal
-                isOpen={isLoginModalOpen}
-                onClose={() => setIsLoginModalOpen(false)}
-                setUser={setUser}
-            />
         </header>
     );
 };

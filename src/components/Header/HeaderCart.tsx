@@ -1,9 +1,11 @@
 import { useCartContext } from "@/contexts/CartContext";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { useNavigate } from "react-router-dom";
 
 const HeaderCart: FC = () => {
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const {
         cart,
         totalPrice,
@@ -15,8 +17,14 @@ const HeaderCart: FC = () => {
         getTicketPrice,
     } = useCartContext();
 
+    const navigate = useNavigate();
+    const handleCheckout = () => {
+        setIsPopoverOpen(false);
+        navigate("/cart");
+    };
+
     return (
-        <Popover>
+        <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
                 <Button
                     variant="secondary"
@@ -93,6 +101,7 @@ const HeaderCart: FC = () => {
                                 <Button
                                     variant="default"
                                     className="w-full bg-blue-500 text-white hover:bg-blue-600"
+                                    onClick={handleCheckout}
                                 >
                                     Go to Checkout
                                 </Button>

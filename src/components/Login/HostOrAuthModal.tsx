@@ -8,13 +8,18 @@ interface Props {
     onClose: () => void;
 }
 
-const LoginChoiceModal: FC<Props> = ({ isOpen, onClose }) => {
-    const { setIsLoginModalOpen } = useLoginContext();
+const HostOrAuthModal: FC<Props> = ({ isOpen, onClose }) => {
+    const { openLoginModal, openGuestFormModal } = useLoginContext();
 
     if (!isOpen) return null;
 
     const handleLogin = () => {
-        setIsLoginModalOpen(true);
+        openLoginModal();
+        onClose();
+    };
+
+    const handleGuest = () => {
+        openGuestFormModal();
         onClose();
     };
 
@@ -24,10 +29,12 @@ const LoginChoiceModal: FC<Props> = ({ isOpen, onClose }) => {
                 <Button variant="default" onClick={handleLogin}>
                     Login
                 </Button>
-                <Button variant="outline">Continue as Guest</Button>
+                <Button variant="outline" onClick={handleGuest}>
+                    Continue as Guest
+                </Button>
             </div>
         </Modal>
     );
 };
 
-export default LoginChoiceModal;
+export default HostOrAuthModal;
