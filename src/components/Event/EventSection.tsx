@@ -5,10 +5,15 @@ import EventInfo from "./EventInfo";
 import { useFetchEvent } from "@/hooks/useFetchEvent";
 import { useCartContext } from "@/contexts/CartContext";
 import Cart from "../Cart/Cart";
+import EventSectionLouder from "../Loaders/EventSectionLouder";
 
 const EventSection: FC = () => {
     const { data: event, loading, error } = useFetchEvent();
     const { setCurrency, setEventDetails } = useCartContext();
+
+    const reloadPage = () => {
+        window.location.reload();
+    };
 
     useEffect(() => {
         if (!loading && !error && event) {
@@ -20,11 +25,17 @@ const EventSection: FC = () => {
     return (
         <main className="grow flex flex-col justify-center">
             {loading ? (
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                    Loading...
-                </div>
+                <EventSectionLouder />
             ) : error ? (
-                <p style={{ color: "red" }}>{error}</p>
+                <div className="flex flex-col items-center gap-4 mt-10">
+                    <p className="text-red-600 font-medium">{error}</p>
+                    <button
+                        onClick={reloadPage}
+                        className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition-all"
+                    >
+                        Retry
+                    </button>
+                </div>
             ) : event ? (
                 <>
                     <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
