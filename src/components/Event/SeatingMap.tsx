@@ -10,11 +10,7 @@ interface Props {
 }
 
 const SeatingMap: FC<Props> = ({ eventId, className }) => {
-    const {
-        data: fetchedTickets,
-        loading,
-        error,
-    } = useFetchEventTickets(eventId);
+    const { data: fetchedTickets, loading } = useFetchEventTickets(eventId);
     const [selectedSeat, setSelectedSeat] = useState<string>("");
     const { tickets, setTickets, isTicketInCart, getTicketTypeName } =
         useCartContext();

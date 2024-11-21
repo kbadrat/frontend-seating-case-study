@@ -2,7 +2,7 @@ import { FC } from "react";
 import {
     Avatar,
     AvatarFallback,
-    AvatarImage,
+    // AvatarImage,
 } from "@/components/ui/avatar.tsx";
 import {
     DropdownMenu,

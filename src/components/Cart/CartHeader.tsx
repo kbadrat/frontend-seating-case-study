@@ -15,10 +15,7 @@ const CartHeader: FC<Props> = ({ getTotalTickets, event }) => {
         : new Date();
     const eventEndDate = event.dateTo ? new Date(event.dateTo) : new Date();
 
-    const [formattedStartDate, formattedEndDate] = dateFormat(
-        eventStartDate,
-        eventEndDate
-    );
+    const [formattedStartDate] = dateFormat(eventStartDate, eventEndDate);
 
     return (
         <header className="bg-gradient-to-r from-indigo-700 via-purple-600 to-indigo-700 text-white py-10">
