@@ -1,3 +1,4 @@
+import { forwardRef, useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import {
     Popover,
@@ -7,7 +8,6 @@ import {
 import { useCartContext } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ISeat } from "@/types/types";
-import React from "react";
 
 interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     seat: ISeat;
@@ -15,7 +15,7 @@ interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     getTicketType: (ticketType: string) => string;
 }
 
-export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
+export const Seat = forwardRef<HTMLDivElement, SeatProps>(
     ({ seat, setSelectedSeat, getTicketType, ...props }, ref) => {
         const { messages } = useLanguage();
         const {
@@ -28,17 +28,40 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
             currency,
         } = useCartContext();
 
+        const [open, setOpen] = useState(false);
+
         /* shows selected seat */
-        const handleOpenChange = (open: boolean) => {
-            if (!open) {
+        const handleOpenChange = (isOpen: boolean) => {
+            setOpen(isOpen);
+            if (!isOpen) {
                 setSelectedSeat("");
-            } else setSelectedSeat(seat.seatId);
+            } else {
+                setSelectedSeat(seat.seatId);
+            }
+        };
+
+        const handleAddToCart = () => {
+            setOpen(false);
+            addTicketToCart({
+                ticketTypeId: seat.ticketTypeId,
+                seatId: seat.seatId,
+            });
+            setSelectedSeat("");
+        };
+
+        const handleRemoveFromCart = () => {
+            setOpen(false);
+            removeTicketFromCart({
+                ticketTypeId: seat.ticketTypeId,
+                seatId: seat.seatId,
+            });
+            setSelectedSeat("");
         };
 
         return (
-            <Popover onOpenChange={handleOpenChange}>
+            <Popover open={open} onOpenChange={handleOpenChange}>
                 <PopoverTrigger>
-                    <div className={`${props.className} `} ref={ref}>
+                    <div className={`${props.className}`} ref={ref}>
                         {seat.place}
                     </div>
                 </PopoverTrigger>
@@ -52,17 +75,17 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                             <span className="text-sm font-medium text-gray-600">
                                 {messages.cart.row}:
                             </span>
-                            <span className="font-semibold">{` ${getTicketRow(
-                                seat.seatId
-                            )}`}</span>
+                            <span className="font-semibold">
+                                {` ${getTicketRow(seat.seatId)}`}
+                            </span>
                             ,
                             <span className="text-sm font-medium text-gray-600">
                                 {" "}
                                 {messages.cart.seat}:
                             </span>
-                            <span className="font-semibold">{` ${getTicketPlace(
-                                seat.seatId
-                            )}`}</span>
+                            <span className="font-semibold">
+                                {` ${getTicketPlace(seat.seatId)}`}
+                            </span>
                         </div>
 
                         <div className="text-lg font-bold text-green-600">
@@ -74,12 +97,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                 <Button
                                     variant="destructive"
                                     size="sm"
-                                    onClick={() =>
-                                        removeTicketFromCart({
-                                            ticketTypeId: seat.ticketTypeId,
-                                            seatId: seat.seatId,
-                                        })
-                                    }
+                                    onClick={handleRemoveFromCart}
                                 >
                                     {messages.cart.removeFromCart}
                                 </Button>
@@ -87,12 +105,7 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(
                                 <Button
                                     variant="default"
                                     size="sm"
-                                    onClick={() =>
-                                        addTicketToCart({
-                                            ticketTypeId: seat.ticketTypeId,
-                                            seatId: seat.seatId,
-                                        })
-                                    }
+                                    onClick={handleAddToCart}
                                 >
                                     {messages.cart.addToCart}
                                 </Button>

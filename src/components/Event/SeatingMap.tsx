@@ -35,7 +35,7 @@ const SeatingMap: FC<Props> = ({ eventId, className }) => {
 
     function getSeatClassName(type: string, seatId: string): string {
         const baseClasses =
-            "md:w-7 md:h-9 w-5 h-6 flex items-center justify-center text-mg font-semibold md:text-base text-xs rounded-md border-2 ";
+            "md:w-7 md:h-9 w-5 h-6 flex items-center justify-center text-mg font-semibold md:text-base text-xs rounded-md md:border-2 border-0 ";
 
         if (isTicketInCart(seatId))
             return `${baseClasses} bg-green-400 border-gray-300 text-black hover:bg-green-700 hover:text-white transition-transform duration-200  hover:scale-105`;
@@ -84,7 +84,7 @@ const SeatingMap: FC<Props> = ({ eventId, className }) => {
 
     return (
         <div
-            className={`bg-white rounded-md grow grid p-3 self-stretch shadow-sm gap-2 ${className}`}
+            className={`bg-white rounded-md grow grid md:p-3 p-2 self-stretch shadow-sm gap-2 ${className}`}
             style={{
                 // gridTemplateColumns: "repeat(auto-fill, minmax(40px, 1fr))",
                 gridAutoRows: "40px",

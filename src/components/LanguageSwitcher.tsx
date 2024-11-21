@@ -28,7 +28,7 @@ const LanguageSwitcher: FC = () => {
                         language === "en" ? "rotate-0" : "rotate-[360deg]"
                     }`}
                 >
-                    {language === "en" ? "EN" : "CZ"}
+                    {language === "en" ? "CZ" : "EN"}
                 </div>
             </div>
         </div>
