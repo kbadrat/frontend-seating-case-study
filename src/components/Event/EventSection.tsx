@@ -25,7 +25,7 @@ const EventSection: FC = () => {
     }, [event]);
 
     return (
-        <main className="grow flex flex-col justify-center pb-[80px] md:pb-0">
+        <main className="grow flex flex-col justify-center pb-[80px] md:pb-20">
             {loading ? (
                 <EventSectionLouder />
             ) : error ? (

@@ -1,4 +1,26 @@
-# 🧑🏻‍🚀 NFCtron Frontend Case Study (Seating, 2024)
+# 🧑🏻‍🚀 NFCtron Frontend Case Study (Seating, 2024)  
+
+This is a completed assignment for the **React Frontend Developer** position at NFCtron.  
+
+## 📌 Implemented Features  
+- [x] Displayed a detailed event page with relevant information fetched from the provided API (image, name, description, date, etc.).  
+- [x] Rendered a map of available seats dynamically, respecting the seat order received from the API.  
+- [x] Enabled users to add or remove seats from the shopping cart by clicking on the seat elements.  
+- [x] Implemented state management for managing the shopping cart, including real-time updates on the number of tickets and their total cost in the correct currency and format.  
+- [x] Included functionality for users to purchase tickets by either logging in or proceeding as a guest.  
+- [x] Integrated order creation via the provided API with appropriate user feedback for success or failure.  
+- [x] Added functionality to allow users to add the event to their Google Calendar.
+- [x] Implemented multilingual support for the application (English and Czech).
+
+## 🚀 Additional Notes  
+- The application fetches new data from the API upon every even page refresh. 
+- The application has been deployed on **Vercel** as recommended in the assignment.  
+
+---  
+
+Below is the original README provided for the assignment:
+
+---  
 
 >👋 Vítejte u zadání pro kandidáty na pozici ⚛️ **React Frontend Developer** v NFCtron! Vaším úkolem bude
 dokončit jednoduchou React aplikaci pro nákup vstupenek na akci.
