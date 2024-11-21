@@ -15,7 +15,7 @@ const SuccessfullyOrder: FC<Props> = ({ orderId, customer }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="mt-20 bg-gray-50 flex items-center justify-center flex-col">
+        <div className="md:mt-20 md:mb-2- mt-5 mb-5 bg-gray-100 flex items-center justify-center flex-col">
             <div className="max-w-lg w-full bg-white shadow-lg rounded-lg p-8 space-y-6">
                 <h2 className="text-3xl font-semibold text-green-800 text-center">
                     {messages.cart.thankYouForOrder}

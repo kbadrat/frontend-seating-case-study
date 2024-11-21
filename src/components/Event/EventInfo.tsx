@@ -34,7 +34,7 @@ const EventInfo: FC<Props> = ({
     const shortDescription = description.slice(0, 150) + "...";
 
     return (
-        <aside className="w-full max-w-sm bg-white rounded-lg shadow-lg p-6 flex flex-col gap-4">
+        <aside className="w-full max-w-sm bg-white rounded-lg  md:shadow-lg p-6 flex flex-col gap-4 ">
             {/* Event Date */}
             <div className="flex items-center text-sm text-gray-600 font-medium">
                 <img

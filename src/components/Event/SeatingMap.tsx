@@ -6,9 +6,10 @@ import { useCartContext } from "@/contexts/CartContext";
 
 interface Props {
     eventId: string;
+    className?: string;
 }
 
-const SeatingMap: FC<Props> = ({ eventId }) => {
+const SeatingMap: FC<Props> = ({ eventId, className }) => {
     const {
         data: fetchedTickets,
         loading,
@@ -34,7 +35,7 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
 
     function getSeatClassName(type: string, seatId: string): string {
         const baseClasses =
-            "w-7 h-9 flex items-center justify-center text-mg font-semibold rounded-md border-2 ";
+            "md:w-7 md:h-9 w-5 h-6 flex items-center justify-center text-mg font-semibold md:text-base text-xs rounded-md border-2 ";
 
         if (isTicketInCart(seatId))
             return `${baseClasses} bg-green-400 border-gray-300 text-black hover:bg-green-700 hover:text-white transition-transform duration-200  hover:scale-105`;
@@ -59,7 +60,7 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
     function handleSeats(tickets: IEventTicketsResponse) {
         return tickets.seatRows.map((row) => (
             <div key={row.seatRow} className="flex items-center">
-                <div className="flex-none pl-5 text-gray-800 font-medium ">
+                <div className="flex-none md:pl-5 pl-0 md:text-base text-sm text-gray-800 font-medium ">
                     {row.seatRow}
                 </div>
 
@@ -83,7 +84,7 @@ const SeatingMap: FC<Props> = ({ eventId }) => {
 
     return (
         <div
-            className="bg-white rounded-md grow grid p-3 self-stretch shadow-sm gap-2"
+            className={`bg-white rounded-md grow grid p-3 self-stretch shadow-sm gap-2 ${className}`}
             style={{
                 // gridTemplateColumns: "repeat(auto-fill, minmax(40px, 1fr))",
                 gridAutoRows: "40px",

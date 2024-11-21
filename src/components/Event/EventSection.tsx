@@ -25,7 +25,7 @@ const EventSection: FC = () => {
     }, [event]);
 
     return (
-        <main className="grow flex flex-col justify-center">
+        <main className="grow flex flex-col justify-center pb-[80px] md:pb-0">
             {loading ? (
                 <EventSectionLouder />
             ) : error ? (
@@ -40,8 +40,12 @@ const EventSection: FC = () => {
                 </div>
             ) : event ? (
                 <>
-                    <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
-                        <SeatingMap eventId={event.eventId} />
+                    <div className="max-w-screen-lg m-auto p-4 grow w-full flex flex-col md:flex-row items-start gap-3">
+                        <SeatingMap
+                            eventId={event.eventId}
+                            className="order-last md:order-none"
+                        />
+
                         <EventInfo
                             name={event.namePub}
                             description={event.description}

@@ -1,6 +1,6 @@
 {
     "header":{
-        "login": "Login or register",
+        "login": "Login",
         "logout" : "Logout"
     },
     "eventPage": {

@@ -81,7 +81,7 @@ const CartPage: FC = () => {
                     />
                 </div>
             ) : (
-                <div className="min-h-screen bg-gray-100">
+                <div className=" bg-gray-100">
                     {getTotalTickets() > 0 && event && (
                         <CartHeader
                             getTotalTickets={getTotalTickets}

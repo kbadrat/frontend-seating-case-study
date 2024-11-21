@@ -12,12 +12,24 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
 body {
     margin: 0;
     display: flex;
-    place-items: center;
+    flex-direction: column;
     min-width: 320px;
     min-height: 100vh;
+    overflow: auto;
 }
 
 #root {
@@ -29,6 +41,6 @@ body {
 /* temporarily dark. (light)*/
 @media (prefers-color-scheme: light) {
     :root {
-        @apply bg-zinc-50 text-zinc-900;
+        @apply bg-zinc-100 text-zinc-900;
     }
 }

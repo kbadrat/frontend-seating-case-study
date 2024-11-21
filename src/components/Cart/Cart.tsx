@@ -10,7 +10,7 @@ const Cart: FC = () => {
     const navigate = useNavigate();
 
     return (
-        <nav className="fixed  bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">
+        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center h-20">
             <div className="max-w-screen-lg p-6 flex justify-between items-center gap-4 grow">
                 {/* total in cart state */}
                 <TotalCart totalTickets={getTotalTickets} />
